@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';           // ← for base64
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +18,26 @@ class _ChatPageState extends State<ChatPage> {
   final _auth        = FirebaseAuth.instance;
   final _picker      = ImagePicker();
   bool _uploading    = false;
+
+  @override
+void initState() {
+  super.initState();
+
+  // Show a banner when a message arrives while app is open
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    final notification = message.notification;
+    if (notification != null && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${notification.title}: ${notification.body}'),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+  });
+}
+
+  
 
   Future<void> _sendMessage() async {
     final text = _messageCtrl.text.trim();
