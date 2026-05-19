@@ -267,4 +267,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 Built with ❤️ using Flutter and Firebase.
 
+<<<<<<< HEAD
 > *This project was built as a hands-on learning project covering all major Firebase services on the free Spark plan.*
+=======
+> *This project was built as a hands-on learning project covering all major Firebase services on the free Spark plan.*
+>>>>>>> 089dfa93773112dcd661757c52d15ce018387d22
