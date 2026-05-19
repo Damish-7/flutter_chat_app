@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_chat_app/notification_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChatPage extends StatefulWidget {
@@ -21,20 +22,9 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
 void initState() {
-  super.initState();
-
-  // Show a banner when a message arrives while app is open
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    final notification = message.notification;
-    if (notification != null && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${notification.title}: ${notification.body}'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-    }
-  });
+ super.initState();
+ NotificationService().listenForeground(context);
+ 
 }
 
   
